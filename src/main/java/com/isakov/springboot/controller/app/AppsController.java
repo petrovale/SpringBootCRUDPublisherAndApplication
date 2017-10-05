@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -29,4 +30,20 @@ public class AppsController {
         model.addAttribute("apps", apps);
         return "apps";
     }
+
+    @RequestMapping(value = "/apps/add", method = RequestMethod.GET)
+    public String addStudent(Model model){
+        model.addAttribute("app", new App());
+        return "addApp";
+    }
+
+    @RequestMapping(value = "/apps/save", method = RequestMethod.POST)
+    public String save(Authentication auth, App app){
+        User user = (User) auth.getPrincipal();
+        app.setPublisher(publisherService.findByName(user.getUsername()));
+        appService.saveApp(app);
+        return "redirect:/apps";
+    }
+
+
 }
