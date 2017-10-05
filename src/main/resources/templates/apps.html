@@ -24,16 +24,14 @@
     <table class="table table-striped">
 		<tr>
 		    <th>Name</th>
-		    <th>Email</th>
-		    <th>Department</th>
-		    <th>Courses</th>
+		    <th>Versions</th>
 		    <th>Actions</th>
 		</tr>  
     	<tr th:each = "app : ${apps}">
     		<td th:text="${app.name}"></td>
     	</tr>
     </table>
-    <a href="/add" class="btn btn-success">Add Student</a>
+    <a href="/add" class="btn btn-success">Add App</a>
 	</div>    
 </body>
 </html>

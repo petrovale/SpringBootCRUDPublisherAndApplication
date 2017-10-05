@@ -1,11 +1,9 @@
 package com.isakov.springboot.service;
 
 import com.isakov.springboot.model.App;
-import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.repositories.AppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,8 +36,8 @@ public class AppServiceImpl implements AppService {
         appRepository.deleteAll();
     }
 
-    public List<App> findAllApps(){
-        return appRepository.findAll();
+    public List<App> findAllApps(Long publisherId){
+        return appRepository.findByPublisher_id(publisherId);
     }
 
     public boolean isAppExist(App app) {

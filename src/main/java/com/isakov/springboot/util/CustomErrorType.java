@@ -1,6 +1,5 @@
 package com.isakov.springboot.util;
 
-
 public class CustomErrorType {
 
     private String errorMessage;

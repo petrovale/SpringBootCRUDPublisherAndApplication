@@ -6,9 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="APPS")
@@ -29,6 +27,14 @@ public class App implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "app")
     private List<AppVersion> versions;
+
+    public App() {
+    }
+
+    public App(String name, Publisher publisher) {
+        this.name = name;
+        this.publisher = publisher;
+    }
 
     public List<AppVersion> getVersions() {
         return versions;

@@ -1,7 +1,6 @@
 package com.isakov.springboot.controller.publisher;
 
 import com.isakov.springboot.model.Publisher;
-import com.isakov.springboot.repositories.PublisherRepository;
 import com.isakov.springboot.service.PublisherService;
 import com.isakov.springboot.to.SignupForm;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,7 +18,7 @@ public interface AppService {
 
     void deleteAllApps();
 
-    List<App> findAllApps();
+    List<App> findAllApps(Long publisherId);
 
     boolean isAppExist(App app);
 }

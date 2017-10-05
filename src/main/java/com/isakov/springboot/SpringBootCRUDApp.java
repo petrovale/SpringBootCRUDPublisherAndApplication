@@ -1,17 +1,15 @@
 package com.isakov.springboot;
 
 import com.isakov.springboot.configuration.JpaConfiguration;
+import com.isakov.springboot.model.App;
 import com.isakov.springboot.model.Publisher;
+import com.isakov.springboot.repositories.AppRepository;
 import com.isakov.springboot.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Import(JpaConfiguration.class)
 @SpringBootApplication(scanBasePackages={"com.isakov.springboot"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
@@ -23,19 +21,14 @@ public class SpringBootCRUDApp {
 
 	/**
 	 * Save students and courses to H2 DB for testing
-	 * @param repository
+	 * @param publisherRepository
+	 * @param appRepository
 	 * @return
 	 */
 	@Bean
-	public CommandLineRunner demo(PublisherRepository repository) {
+	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository) {
 		return (args) -> {
 			/*
-			// save students
-			Student student1 = new Student("John", "Johnson", "IT", "john@john.com");
-			repository.save(new Student("Steve", "Stevens", "IT", "steve.stevent@st.com"));
-			repository.save(new Student("Mary", "Robinson", "IT", "mary@robinson.com"));
-			repository.save(new Student("Kate", "Keystone", "Nursery","kate@kate.com"));
-			repository.save(new Student("Diana", "Doll", "Business","diana@doll.com"));
 
 			Course course1 = new Course("Programming Java");
 			Course course2 = new Course("Spring Boot basics");
@@ -55,8 +48,17 @@ public class SpringBootCRUDApp {
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			Publisher publisher1 = new Publisher("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			Publisher publisher2 = new Publisher("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ADMIN");
-			repository.save(publisher1);
-			repository.save(publisher2);
+			publisher1 = publisherRepository.save(publisher1);
+			publisherRepository.save(publisher2);
+
+			// save apps
+			appRepository.save(new App("Разрушитили publisher1", publisher1));
+			appRepository.save(new App("Вкрутилка publisher1", publisher1));
+			appRepository.save(new App("Сборщик publisher1", publisher1));
+			appRepository.save(new App("Разработчик publisher1", publisher1));
+
+			appRepository.save(new App("Разрушитили publisher2", publisher2));
+			appRepository.save(new App("Вкрутилка publisher2", publisher2));
 		};
 	}
 }
