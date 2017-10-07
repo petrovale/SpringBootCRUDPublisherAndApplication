@@ -32,7 +32,7 @@ public class AppsController {
     public String index(Authentication auth, Model model) {
         User user = (User) auth.getPrincipal();
         Long publisherId = publisherService.findByName(user.getUsername()).getId();
-        List<App> apps = (List<App>) appService.findAllApps(publisherId);
+        List<App> apps = appService.findAllApps(publisherId);
         model.addAttribute("apps", apps);
         return "apps";
     }
@@ -53,7 +53,7 @@ public class AppsController {
 
     @RequestMapping(value = "/apps/addAppVersion/{id}", method = RequestMethod.GET)
     public String addAppVersion(@PathVariable("id") Long appId, Model model){
-        model.addAttribute("versions", appVersionService.findAllAppVersions());
+        //model.addAttribute("versions", appVersionService.findAllAppVersions());
         model.addAttribute("app", appService.findById(appId));
         model.addAttribute("version", new AppVersion());
         return "addAppVersion";

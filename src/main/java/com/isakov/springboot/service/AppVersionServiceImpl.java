@@ -1,11 +1,15 @@
 package com.isakov.springboot.service;
 
+import com.isakov.springboot.model.App;
 import com.isakov.springboot.model.AppVersion;
 import com.isakov.springboot.repositories.AppVersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.isakov.springboot.util.VersionUtil.prepareToSave;
 
 @Service
 public class AppVersionServiceImpl implements AppVersionService {
@@ -22,9 +26,17 @@ public class AppVersionServiceImpl implements AppVersionService {
         return appVersionRepository.findByName(name);
     }
 
+    @Transactional
     @Override
-    public void saveAppVersion(AppVersion appVersion) {
-        appVersionRepository.save(appVersion);
+    public void saveAppVersion(AppVersion newVersion) {
+        if (newVersion.isActive()) {
+            AppVersion version = appVersionRepository.findByActiveTrue();
+            if (version != null) {
+                appVersionRepository.save(
+                        prepareToSave(version));
+            }
+        }
+        appVersionRepository.save(newVersion);
     }
 
     @Override
@@ -43,8 +55,8 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    public List<AppVersion> findAllAppVersions() {
-        return appVersionRepository.findAll();
+    public List<AppVersion> findAllAppVersions(Long appId) {
+        return appVersionRepository.findByApp_id(appId);
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface AppVersionService {
 
     void deleteAllAppVersions();
 
-    List<AppVersion> findAllAppVersions();
+    List<AppVersion> findAllAppVersions(Long appId);
 
     boolean isAppVersionExist(AppVersion appVersion);
 }

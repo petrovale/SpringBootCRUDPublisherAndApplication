@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Versionlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" data-th-href="@{/css/bootstrap.min.css}" />
+ 
+</head>
+<body>
+	<div class="col-md-4">
+		<h1>Versions</h1>
+	</div>
+	<div class="col-md-4">
+		<h3 th:text="${nameapp}"></h3>
+	</div>
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-danger"/>
+		</form>
+	</div>
+    
+    <div style="padding:0 20px">
+    <table class="table table-striped">
+		<tr>
+		    <th>Name</th>
+		    <th>Active</th>
+		    <th>Actions</th>
+		</tr>  
+    	<tr th:each = "version : ${versions}">
+    		<td th:text="${version.name}"></td>
+			<td class="col_name">
+				<span th:if="${version.active}">
+					yes<i class="fa fa-bullseye fa-2x" style="color:green; text-align: center;" aria-hidden="true"></i>
+				</span>
+				<span th:if="${!version.active}">
+					no<i class="fa fa-bullseye fa-2x"  style="text-align: center;" aria-hidden="true"></i>
+				</span>
+			</td>
+      		<td>
+    			<a th:href="@{apps/versions/add/{id}(id=${version.id})}" class="btn btn-success btn-xs">Add</a>
+    			<a th:href="@{apps/versions/edit/{id}(id=${version.id})}" class="btn btn-success btn-xs">Edit</a>
+    			<a th:href="@{apps/versions/delete/{id}(id=${version.id})}" class="btn btn-danger btn-xs">Delete</a>
+    		</td>
+    	</tr>
+    </table>
+    <a href="/SpringBootCRUDApp/apps" class="btn btn-success">Apps</a>
+	</div>    
+</body>
+</html>

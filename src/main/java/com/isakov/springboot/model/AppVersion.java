@@ -19,12 +19,23 @@ public class AppVersion implements Serializable {
     @Column(name="NAME", nullable=false)
     private String name;
 
+    @Column(name="ACTIVE", nullable=false, columnDefinition = "bool default false")
+    private boolean active = false;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "APP_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private App app;
 
     public AppVersion() {
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Long getId() {
@@ -58,6 +69,7 @@ public class AppVersion implements Serializable {
 
         AppVersion that = (AppVersion) o;
 
+        if (active != that.active) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         return app != null ? app.equals(that.app) : that.app == null;
@@ -68,6 +80,7 @@ public class AppVersion implements Serializable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (active ? 1 : 0);
         result = 31 * result + (app != null ? app.hashCode() : 0);
         return result;
     }
