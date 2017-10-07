@@ -1,14 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add app</title>
+    <title>Edit App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" data-th-href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>New App</h1>
+	<h1>Edit App</h1>
 	<div class="col-md-4">
-		<form th:object="${app}" th:action="@{save}" action="#" method="post">
+		<form th:object="${app}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control"/>
 			<input type="text" th:field="*{name}" class="form-control"
 				placeholder="name" />
 			<div style="clear: both; display: block; height: 10px;"></div>

@@ -1,13 +1,16 @@
 package com.isakov.springboot.controller.app;
 
 import com.isakov.springboot.model.App;
+import com.isakov.springboot.model.AppVersion;
 import com.isakov.springboot.service.AppService;
+import com.isakov.springboot.service.AppVersionService;
 import com.isakov.springboot.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +21,9 @@ public class AppsController {
 
     @Autowired
     private AppService appService;
+
+    @Autowired
+    private AppVersionService appVersionService;
 
     @Autowired
     private PublisherService publisherService;
@@ -32,7 +38,7 @@ public class AppsController {
     }
 
     @RequestMapping(value = "/apps/add", method = RequestMethod.GET)
-    public String addStudent(Model model){
+    public String addApp(Model model){
         model.addAttribute("app", new App());
         return "addApp";
     }
@@ -45,5 +51,39 @@ public class AppsController {
         return "redirect:/apps";
     }
 
+    @RequestMapping(value = "/apps/addAppVersion/{id}", method = RequestMethod.GET)
+    public String addAppVersion(@PathVariable("id") Long appId, Model model){
+        model.addAttribute("versions", appVersionService.findAllAppVersions());
+        model.addAttribute("app", appService.findById(appId));
+        model.addAttribute("version", new AppVersion());
+        return "addAppVersion";
+    }
 
+    @RequestMapping(value="/apps/{path}/versions", method=RequestMethod.POST)
+    public String appsAddVersion(@PathVariable Long path, AppVersion version) {
+        AppVersion appVersion = appVersionService.findByName(version.getName());
+        App app = appService.findById(path);
+
+        if (app != null) {
+            if (!app.hasVersion(appVersion)) {
+                version.setApp(app);
+                appVersionService.saveAppVersion(version);
+            }
+            return "redirect:/apps";
+        }
+
+        return "redirect:/apps";
+    }
+
+    @RequestMapping(value="/apps/edit/{id}", method=RequestMethod.GET)
+    public String editApp(@PathVariable("id") Long appId, Model model){
+        model.addAttribute("app", appService.findById(appId));
+        return "editApp";
+    }
+
+    @RequestMapping(value = "/apps/delete/{id}", method = RequestMethod.GET)
+    public String deleteApp(@PathVariable("id") Long appId, Model model) {
+        appService.deleteAppById(appId);
+        return "redirect:/apps";
+    }
 }

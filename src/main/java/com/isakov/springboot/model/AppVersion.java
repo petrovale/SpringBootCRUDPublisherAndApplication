@@ -5,10 +5,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="APP_VERSIONS")
-public class AppVersion {
+public class AppVersion implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -22,6 +23,9 @@ public class AppVersion {
     @JoinColumn(name = "APP_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private App app;
+
+    public AppVersion() {
+    }
 
     public Long getId() {
         return id;

@@ -68,6 +68,16 @@ public class App implements Serializable {
         this.publisher = publisher;
     }
 
+    public boolean hasVersion(AppVersion version) {
+        if (version == null) return false;
+        for (AppVersion appVersion: getVersions()) {
+            if (appVersion.getId() == version.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
