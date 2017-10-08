@@ -23,16 +23,6 @@ public class VersionServiceImpl implements VersionService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    @Override
-    public Version findById(Long id) {
-        return versionRepository.findOne(id);
-    }
-
-    @Override
-    public Version findByName(String name) {
-        return versionRepository.findByName(name);
-    }
-
     @Transactional
     @Override
     public Version saveVersion(Version newVersion, long appId, long publisherId) {
@@ -60,27 +50,12 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public void updateAppVersion(Version appVersion, long appId, long publisherId) {
-        saveVersion(appVersion, appId, publisherId);
-    }
-
-    @Override
     public void deleteById(long versionId, long appId, long publisherId) {
         versionRepository.delete(versionId, appId, publisherId);
     }
 
     @Override
-    public void deleteAllAppVersions() {
-        versionRepository.deleteAll();
-    }
-
-    @Override
-    public List<Version> findAllAppVersions(long appId,long publisherId) {
-        return versionRepository.findByApp_idAndPublisher_id(appId, publisherId);
-    }
-
-    @Override
-    public boolean isAppVersionExist(Version appVersion) {
-        return findByName(appVersion.getName()) != null;
+    public List<Version> getAll(long appId,long publisherId) {
+        return versionRepository.getAll(appId, publisherId);
     }
 }

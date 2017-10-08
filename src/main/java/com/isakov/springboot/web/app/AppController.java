@@ -2,9 +2,7 @@ package com.isakov.springboot.web.app;
 
 import com.isakov.springboot.AuthorizedPublisher;
 import com.isakov.springboot.model.App;
-import com.isakov.springboot.model.Version;
 import com.isakov.springboot.service.AppService;
-import com.isakov.springboot.service.VersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +18,9 @@ public class AppController {
     @Autowired
     private AppService appService;
 
-    @Autowired
-    private VersionService versionService;
-
     @RequestMapping("/")
-    public void home(Model model) {
-        index(model);
+    public String home(Model model) {
+        return index(model);
     }
 
     @RequestMapping("/apps")
@@ -56,7 +51,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/apps/delete/{id}", method = RequestMethod.GET)
-    public String deleteApp(@PathVariable("id") Long appId, Model model) {
+    public String deleteApp(@PathVariable("id") Long appId) {
         appService.deleteAppById(appId);
         return "redirect:/apps";
     }

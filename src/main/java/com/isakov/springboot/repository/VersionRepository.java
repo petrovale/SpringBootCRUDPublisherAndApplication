@@ -14,15 +14,10 @@ import java.util.List;
 @Repository
 public interface VersionRepository extends JpaRepository<Version, Long> {
 
-    Version findByName(String name);
-
     Version findByActiveTrue();
 
-    List<Version> findByApp_id(Long appId);
-
-    Version findByIdAndApp_idAndPublisher_id(long versionId, long appId, long publisherId);
-
-    List<Version> findByApp_idAndPublisher_id(long appId, long publisherId);
+    @Query("SELECT v FROM Version v WHERE v.app.id=:appId AND v.publisher.id=:publisherId")
+    List<Version> getAll(@Param("appId") long appId, @Param("publisherId") long publisherId);
 
     @Modifying
     @Transactional

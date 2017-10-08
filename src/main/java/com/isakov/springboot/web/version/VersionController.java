@@ -22,7 +22,7 @@ public class VersionController {
     @RequestMapping("/apps/{id}/versions/")
     public String index(@PathVariable("id") Long appId, Model model) {
         long publisherId = AuthorizedPublisher.id();
-        model.addAttribute("versions", versionService.findAllAppVersions(appId, publisherId));
+        model.addAttribute("versions", versionService.getAll(appId, publisherId));
         model.addAttribute("app", appService.get(appId, publisherId));
         return "versions";
     }
@@ -30,17 +30,17 @@ public class VersionController {
     @RequestMapping(value = "/apps/{id}/versions/addVersion/", method = RequestMethod.GET)
     public String addAppVersion(@PathVariable("id") Long appId, Model model){
         long publisherId = AuthorizedPublisher.id();
-        model.addAttribute("versions", versionService.findAllAppVersions(appId, publisherId));
+        model.addAttribute("versions", versionService.getAll(appId, publisherId));
         model.addAttribute("app", appService.findById(appId));
         model.addAttribute("version", new Version());
         return "addVersion";
     }
 
     @RequestMapping(value = "/apps/{appid}/versions/delete/{versionid}", method = RequestMethod.GET)
-    public String deleteApp(@PathVariable("appid") Long appId,@PathVariable("versionid") Long versionId) {
+    public String deleteApp(@PathVariable("appid") Long appId,@PathVariable("versionid") Long versionId, Model model) {
         long publisherId = AuthorizedPublisher.id();
         versionService.deleteById(versionId, appId, publisherId);
-        return "redirect:/apps";
+        return "redirect:/apps/" + appId + "/versions/";
     }
 
     @RequestMapping(value="/apps/{appid}/versions/edit/{versionid}", method=RequestMethod.GET)
@@ -55,6 +55,6 @@ public class VersionController {
     public String save(@PathVariable("appid") Long appId, Version version){
         long publisherId = AuthorizedPublisher.id();
         versionService.saveVersion(version, appId, publisherId);
-        return "redirect:/apps";
+        return "redirect:/apps/" + appId + "/versions/";
     }
 }

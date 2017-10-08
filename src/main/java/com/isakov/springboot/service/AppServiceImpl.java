@@ -21,10 +21,6 @@ public class AppServiceImpl implements AppService {
         return appRepository.findOne(id);
     }
 
-    public App findByName(String name) {
-        return appRepository.findByName(name);
-    }
-
     @Transactional
     @Override
     public App saveApp(App app, long publisherId) {
@@ -41,23 +37,11 @@ public class AppServiceImpl implements AppService {
         return app != null && app.getPublisher().getId() == publisherId ? app : null;
     }
 
-    public void updateApp(App app, long publisherId){
-        saveApp(app, publisherId);
-    }
-
     public void deleteAppById(Long id){
         appRepository.delete(id);
     }
 
-    public void deleteAllApps(){
-        appRepository.deleteAll();
-    }
-
     public List<App> getAll(Long publisherId){
         return appRepository.getAll(publisherId);
-    }
-
-    public boolean isAppExist(App app) {
-        return findByName(app.getName()) != null;
     }
 }

@@ -8,19 +8,11 @@ public interface AppService {
 
     App findById(Long id);
 
-    App findByName(String name);
-
     App saveApp(App app, long publisherId);
 
     App get(long id, long publisherId);
 
-    void updateApp(App app, long publisherId);
-
     void deleteAppById(Long id);
 
-    void deleteAllApps();
-
     List<App> getAll(Long publisherId);
-
-    boolean isAppExist(App app);
 }

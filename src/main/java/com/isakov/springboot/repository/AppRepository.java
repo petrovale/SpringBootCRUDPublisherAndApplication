@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface AppRepository extends JpaRepository<App, Long> {
 
-    App findByName(String name);
-
     @Query("SELECT a FROM App a WHERE a.publisher.id=:publisherId")
     List<App> getAll(@Param("publisherId") long publisherId);
 }
