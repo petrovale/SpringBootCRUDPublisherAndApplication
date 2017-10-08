@@ -5,7 +5,6 @@ import com.isakov.springboot.model.App;
 import com.isakov.springboot.model.Version;
 import com.isakov.springboot.service.AppService;
 import com.isakov.springboot.service.VersionService;
-import com.isakov.springboot.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class AppsController {
+public class AppController {
 
     @Autowired
     private AppService appService;
@@ -24,10 +23,15 @@ public class AppsController {
     @Autowired
     private VersionService versionService;
 
+    @RequestMapping("/")
+    public void home(Model model) {
+        index(model);
+    }
+
     @RequestMapping("/apps")
     public String index(Model model) {
         long publisherId = AuthorizedPublisher.id();
-        List<App> apps = appService.findAllApps(publisherId);
+        List<App> apps = appService.getAll(publisherId);
         model.addAttribute("apps", apps);
         return "apps";
     }

@@ -53,8 +53,8 @@ public class AppServiceImpl implements AppService {
         appRepository.deleteAll();
     }
 
-    public List<App> findAllApps(Long publisherId){
-        return appRepository.findByPublisher_id(publisherId);
+    public List<App> getAll(Long publisherId){
+        return appRepository.getAll(publisherId);
     }
 
     public boolean isAppExist(App app) {
