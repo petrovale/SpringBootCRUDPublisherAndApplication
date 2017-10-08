@@ -1,5 +1,6 @@
 package com.isakov.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class App implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PUBLISHER_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Publisher publisher;
 
     @ManyToMany(cascade = CascadeType.MERGE)

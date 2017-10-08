@@ -40,8 +40,8 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public void deleteAppById(Long id, Long publisherId){
-        appRepository.delete(id, publisherId);
+    public int deleteAppById(Long id, Long publisherId){
+        return appRepository.delete(id, publisherId);
     }
 
     @Override

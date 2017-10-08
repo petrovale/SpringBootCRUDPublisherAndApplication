@@ -54,13 +54,13 @@ public class SpringBootCRUDApp {
 			publisherRepository.save(publisher2);
 
 			// save apps
-			appRepository.save(new App("Разрушитили publisher1", publisher1));
-			appRepository.save(new App("Вкрутилка publisher1", publisher1));
-			appRepository.save(new App("Сборщик publisher1", publisher1));
-			appRepository.save(new App("Разработчик publisher1", publisher1));
+			appRepository.save(new App("Destroyers publisher1", publisher1));
+			appRepository.save(new App("Screwdriver publisher1", publisher1));
+			appRepository.save(new App("Collector publisher1", publisher1));
+			appRepository.save(new App("Developer publisher1", publisher1));
 
-			appRepository.save(new App("Разрушитили publisher2", publisher2));
-			appRepository.save(new App("Вкрутилка publisher2", publisher2));
+			appRepository.save(new App("Destroyers publisher2", publisher2));
+			appRepository.save(new App("Screwdriver publisher2", publisher2));
 
 			Genre genre1 = new Genre("Programming Java");
 			Genre genre2 = new Genre("Spring Boot basics");

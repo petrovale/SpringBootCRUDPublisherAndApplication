@@ -31,7 +31,6 @@ public class AppController {
     @RequestMapping("/apps")
     public String index(Model model) {
         long publisherId = AuthorizedPublisher.id();
-        //List<App> apps = appService.getAll(publisherId);
         List<App> apps = appService.getAllWithGenre(publisherId);
         model.addAttribute("apps", apps);
         return "apps";

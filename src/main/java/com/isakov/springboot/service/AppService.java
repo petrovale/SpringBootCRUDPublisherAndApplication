@@ -11,7 +11,7 @@ public interface AppService {
 
     App get(long id, long publisherId);
 
-    void deleteAppById(Long id, Long publisherId);
+    int deleteAppById(Long id, Long publisherId);
 
     List<App> getAll(Long publisherId);
 

@@ -1,5 +1,6 @@
 package com.isakov.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Publisher implements Serializable{
     private String name;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
@@ -50,9 +52,8 @@ public class Publisher implements Serializable{
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "publisher")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    //@OrderBy("dateTime DESC")
-    //@JsonIgnore
+    @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
     private List<App> apps;
 
     public Long getId() {
