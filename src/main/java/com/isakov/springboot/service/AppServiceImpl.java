@@ -1,7 +1,9 @@
 package com.isakov.springboot.service;
 
 import com.isakov.springboot.model.App;
+import com.isakov.springboot.model.Version;
 import com.isakov.springboot.repository.AppRepository;
+import com.isakov.springboot.repository.GenreRepository;
 import com.isakov.springboot.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,16 @@ public class AppServiceImpl implements AppService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    public App findById(Long id) {
-        return appRepository.findOne(id);
-    }
+    @Autowired
+    private GenreRepository genreRepository;
 
     @Transactional
     @Override
-    public App saveApp(App app, long publisherId) {
+    public App saveApp(App app, long publisherId, long genreId) {
         if (!app.isNew() && get(app.getId(), publisherId) == null) {
             return null;
         }
+        app.getGenres().add(genreRepository.getOne(genreId));
         app.setPublisher(publisherRepository.getOne(publisherId));
         return appRepository.save(app);
     }
@@ -37,11 +39,18 @@ public class AppServiceImpl implements AppService {
         return app != null && app.getPublisher().getId() == publisherId ? app : null;
     }
 
-    public void deleteAppById(Long id){
-        appRepository.delete(id);
+    @Override
+    public void deleteAppById(Long id, Long publisherId){
+        appRepository.delete(id, publisherId);
     }
 
+    @Override
     public List<App> getAll(Long publisherId){
         return appRepository.getAll(publisherId);
+    }
+
+    @Override
+    public List<App> getAllWithGenre(long publisherId) {
+        return appRepository.getAllWithGenre(publisherId);
     }
 }

@@ -11,7 +11,7 @@
 		<h1>Apps</h1>
 	</div>
 	<div class="col-md-4">
-		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+		<h3 th:inline="text">Welcome publisher [[${#httpServletRequest.remoteUser}]]</h3>
 	</div>
 	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
@@ -23,16 +23,19 @@
     <table class="table table-striped">
 		<tr>
 		    <th>Name</th>
-		    <th>Versions</th>
+		    <th>Genre</th>
 		    <th>Actions</th>
 		</tr>  
     	<tr th:each = "app : ${apps}">
     		<td th:text="${app.name}"></td>
-			<td></td>
+			<td>
+				<span th:each="genre,iterStat : ${app.genres}">
+					<span th:text="${genre.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>
+			</td>
 			<td>
 				<a th:href="@{/apps/{id}/versions/addVersion/(id=${app.id})}" class="btn btn-success btn-xs">Add Version</a>
 				<a th:href="@{/apps/{id}/versions/(id=${app.id})}" class="btn btn-success btn-xs">Versions</a>
-				<a th:href="@{/apps/edit/{id}(id=${app.id})}" class="btn btn-success btn-xs">Edit App</a>
 				<a th:href="@{/apps/delete/{id}(id=${app.id})}" class="btn btn-danger btn-xs">Delete</a>
 			</td>
     	</tr>

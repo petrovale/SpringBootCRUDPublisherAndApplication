@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="APPS")
@@ -23,6 +25,10 @@ public class App implements Serializable {
     @JoinColumn(name = "PUBLISHER_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Publisher publisher;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "app_genre", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "genreid") })
+    private Set<Genre> genres = new HashSet<>(0);
 
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "app")
     //private List<Version> versions;
@@ -42,6 +48,15 @@ public class App implements Serializable {
     //public void setVersions(List<Version> versions) {
     //    this.versions = versions;
     //}
+
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
 
     public Long getId() {
         return id;

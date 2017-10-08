@@ -31,7 +31,7 @@ public class VersionController {
     public String addAppVersion(@PathVariable("id") Long appId, Model model){
         long publisherId = AuthorizedPublisher.id();
         model.addAttribute("versions", versionService.getAll(appId, publisherId));
-        model.addAttribute("app", appService.findById(appId));
+        model.addAttribute("app", appService.get(appId, publisherId));
         model.addAttribute("version", new Version());
         return "addVersion";
     }

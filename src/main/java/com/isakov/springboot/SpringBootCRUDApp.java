@@ -2,8 +2,10 @@ package com.isakov.springboot;
 
 import com.isakov.springboot.configuration.JpaConfiguration;
 import com.isakov.springboot.model.App;
+import com.isakov.springboot.model.Genre;
 import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.repository.AppRepository;
+import com.isakov.springboot.repository.GenreRepository;
 import com.isakov.springboot.repository.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +28,7 @@ public class SpringBootCRUDApp {
 	 * @return
 	 */
 	@Bean
-	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository) {
+	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository, GenreRepository genreRepository) {
 		return (args) -> {
 			/*
 
@@ -59,6 +61,12 @@ public class SpringBootCRUDApp {
 
 			appRepository.save(new App("Разрушитили publisher2", publisher2));
 			appRepository.save(new App("Вкрутилка publisher2", publisher2));
+
+			Genre genre1 = new Genre("Programming Java");
+			Genre genre2 = new Genre("Spring Boot basics");
+
+			genreRepository.save(genre1);
+			genreRepository.save(genre2);
 		};
 	}
 }
