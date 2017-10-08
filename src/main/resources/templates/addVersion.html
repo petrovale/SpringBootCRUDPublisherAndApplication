@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>Add Version</h1>
-	<form th:object="${version}" th:action="@{/apps/{path}/versions(path=${app.id})}" method="post" enctype="multipart/form-data" >
+	<form th:object="${version}" th:action="@{/apps/{path}/versions/save(path=${app.id})}" method="post" enctype="multipart/form-data" >
 	<div class="col-md-4">
 		<div class="panel panel-default">
 		 <div class="panel-heading">App info</div>

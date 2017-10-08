@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.isakov.springboot.repositories",
+@EnableJpaRepositories(basePackages = "com.isakov.springboot.repository",
 		entityManagerFactoryRef = "entityManagerFactory",
 		transactionManagerRef = "transactionManager")
 @EnableTransactionManagement

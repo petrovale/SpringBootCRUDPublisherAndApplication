@@ -27,6 +27,15 @@ public class VersionController {
         return "versions";
     }
 
+    @RequestMapping(value = "/apps/{id}/versions/addVersion/", method = RequestMethod.GET)
+    public String addAppVersion(@PathVariable("id") Long appId, Model model){
+        long publisherId = AuthorizedPublisher.id();
+        model.addAttribute("versions", versionService.findAllAppVersions(appId, publisherId));
+        model.addAttribute("app", appService.findById(appId));
+        model.addAttribute("version", new Version());
+        return "addVersion";
+    }
+
     @RequestMapping(value = "/apps/{appid}/versions/delete/{versionid}", method = RequestMethod.GET)
     public String deleteApp(@PathVariable("appid") Long appId,@PathVariable("versionid") Long versionId) {
         long publisherId = AuthorizedPublisher.id();

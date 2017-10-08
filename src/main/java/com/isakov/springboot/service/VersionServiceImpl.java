@@ -1,9 +1,9 @@
 package com.isakov.springboot.service;
 
 import com.isakov.springboot.model.Version;
-import com.isakov.springboot.repositories.AppRepository;
-import com.isakov.springboot.repositories.VersionRepository;
-import com.isakov.springboot.repositories.PublisherRepository;
+import com.isakov.springboot.repository.AppRepository;
+import com.isakov.springboot.repository.VersionRepository;
+import com.isakov.springboot.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

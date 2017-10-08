@@ -49,22 +49,6 @@ public class AppController {
         return "redirect:/apps";
     }
 
-    @RequestMapping(value = "/apps/addVersion/{id}", method = RequestMethod.GET)
-    public String addAppVersion(@PathVariable("id") Long appId, Model model){
-        long publisherId = AuthorizedPublisher.id();
-        model.addAttribute("versions", versionService.findAllAppVersions(appId, publisherId));
-        model.addAttribute("app", appService.findById(appId));
-        model.addAttribute("version", new Version());
-        return "addVersion";
-    }
-
-    @RequestMapping(value="/apps/{path}/versions", method=RequestMethod.POST)
-    public String appsAddVersion(@PathVariable("path") Long appId, Version version) {
-        long publisherId = AuthorizedPublisher.id();
-        versionService.saveVersion(version, appId, publisherId);
-        return "redirect:/apps";
-    }
-
     @RequestMapping(value="/apps/edit/{id}", method=RequestMethod.GET)
     public String editApp(@PathVariable("id") Long appId, Model model){
         model.addAttribute("app", appService.findById(appId));

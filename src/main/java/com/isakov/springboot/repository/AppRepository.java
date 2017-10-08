@@ -1,4 +1,4 @@
-package com.isakov.springboot.repositories;
+package com.isakov.springboot.repository;
 
 import com.isakov.springboot.model.App;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +12,6 @@ import java.util.List;
 public interface AppRepository extends JpaRepository<App, Long> {
 
     App findByName(String name);
-
-    List<App> findByPublisher_id(Long publisherId);
 
     @Query("SELECT a FROM App a WHERE a.publisher.id=:publisherId")
     List<App> getAll(@Param("publisherId") long publisherId);

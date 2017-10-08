@@ -1,4 +1,4 @@
-package com.isakov.springboot.repositories;
+package com.isakov.springboot.repository;
 
 import com.isakov.springboot.model.Version;
 import org.springframework.data.jpa.repository.JpaRepository;
