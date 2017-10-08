@@ -10,9 +10,11 @@ public interface AppService {
 
     App findByName(String name);
 
-    void saveApp(App app);
+    App saveApp(App app, long publisherId);
 
-    void updateApp(App app);
+    App get(long id, long publisherId);
+
+    void updateApp(App app, long publisherId);
 
     void deleteAppById(Long id);
 

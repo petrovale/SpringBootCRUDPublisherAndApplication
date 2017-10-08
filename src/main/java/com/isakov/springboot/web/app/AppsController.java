@@ -1,13 +1,12 @@
-package com.isakov.springboot.controller.app;
+package com.isakov.springboot.web.app;
 
+import com.isakov.springboot.AuthorizedPublisher;
 import com.isakov.springboot.model.App;
-import com.isakov.springboot.model.AppVersion;
+import com.isakov.springboot.model.Version;
 import com.isakov.springboot.service.AppService;
-import com.isakov.springboot.service.AppVersionService;
+import com.isakov.springboot.service.VersionService;
 import com.isakov.springboot.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,15 +22,11 @@ public class AppsController {
     private AppService appService;
 
     @Autowired
-    private AppVersionService appVersionService;
-
-    @Autowired
-    private PublisherService publisherService;
+    private VersionService versionService;
 
     @RequestMapping("/apps")
-    public String index(Authentication auth, Model model) {
-        User user = (User) auth.getPrincipal();
-        Long publisherId = publisherService.findByName(user.getUsername()).getId();
+    public String index(Model model) {
+        long publisherId = AuthorizedPublisher.id();
         List<App> apps = appService.findAllApps(publisherId);
         model.addAttribute("apps", apps);
         return "apps";
@@ -44,34 +39,25 @@ public class AppsController {
     }
 
     @RequestMapping(value = "/apps/save", method = RequestMethod.POST)
-    public String save(Authentication auth, App app){
-        User user = (User) auth.getPrincipal();
-        app.setPublisher(publisherService.findByName(user.getUsername()));
-        appService.saveApp(app);
+    public String save(App app){
+        long publisherId = AuthorizedPublisher.id();
+        appService.saveApp(app, publisherId);
         return "redirect:/apps";
     }
 
-    @RequestMapping(value = "/apps/addAppVersion/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/apps/addVersion/{id}", method = RequestMethod.GET)
     public String addAppVersion(@PathVariable("id") Long appId, Model model){
-        //model.addAttribute("versions", appVersionService.findAllAppVersions());
+        long publisherId = AuthorizedPublisher.id();
+        model.addAttribute("versions", versionService.findAllAppVersions(appId, publisherId));
         model.addAttribute("app", appService.findById(appId));
-        model.addAttribute("version", new AppVersion());
-        return "addAppVersion";
+        model.addAttribute("version", new Version());
+        return "addVersion";
     }
 
     @RequestMapping(value="/apps/{path}/versions", method=RequestMethod.POST)
-    public String appsAddVersion(@PathVariable Long path, AppVersion version) {
-        AppVersion appVersion = appVersionService.findByName(version.getName());
-        App app = appService.findById(path);
-
-        if (app != null) {
-            if (!app.hasVersion(appVersion)) {
-                version.setApp(app);
-                appVersionService.saveAppVersion(version);
-            }
-            return "redirect:/apps";
-        }
-
+    public String appsAddVersion(@PathVariable("path") Long appId, Version version) {
+        long publisherId = AuthorizedPublisher.id();
+        versionService.saveVersion(version, appId, publisherId);
         return "redirect:/apps";
     }
 

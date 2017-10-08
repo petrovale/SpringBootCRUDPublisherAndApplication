@@ -2,8 +2,10 @@ package com.isakov.springboot.service;
 
 import com.isakov.springboot.model.App;
 import com.isakov.springboot.repositories.AppRepository;
+import com.isakov.springboot.repositories.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +13,9 @@ import java.util.List;
 public class AppServiceImpl implements AppService {
     @Autowired
     private AppRepository appRepository;
+
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     public App findById(Long id) {
         return appRepository.findOne(id);
@@ -20,12 +25,24 @@ public class AppServiceImpl implements AppService {
         return appRepository.findByName(name);
     }
 
-    public void saveApp(App app) {
-        appRepository.save(app);
+    @Transactional
+    @Override
+    public App saveApp(App app, long publisherId) {
+        if (!app.isNew() && get(app.getId(), publisherId) == null) {
+            return null;
+        }
+        app.setPublisher(publisherRepository.getOne(publisherId));
+        return appRepository.save(app);
     }
 
-    public void updateApp(App app){
-        saveApp(app);
+    @Override
+    public App get(long id, long publisherId) {
+        App app = appRepository.findOne(id);
+        return app != null && app.getPublisher().getId() == publisherId ? app : null;
+    }
+
+    public void updateApp(App app, long publisherId){
+        saveApp(app, publisherId);
     }
 
     public void deleteAppById(Long id){

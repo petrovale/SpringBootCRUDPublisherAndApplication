@@ -1,4 +1,4 @@
-package com.isakov.springboot.controller.publisher;
+package com.isakov.springboot.web.publisher;
 
 import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.service.PublisherService;

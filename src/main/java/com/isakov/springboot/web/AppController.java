@@ -1,4 +1,4 @@
-package com.isakov.springboot.controller;
+package com.isakov.springboot.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

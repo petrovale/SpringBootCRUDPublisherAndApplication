@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit version</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" data-th-href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Edit version</h1>
+	<div class="col-md-4">
+		<form th:object="${version}" th:action="@{/apps/{appid}/versions/save(appid=${appid})}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control"/>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			Name Version: <input type="text" th:field="*{name}" class="form-control"
+								 placeholder="name" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			Active: <input type="checkbox" th:checked="*{active}" class="form-control"
+						   name="active"/>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" class="btn btn-success" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>

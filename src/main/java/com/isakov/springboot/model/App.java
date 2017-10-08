@@ -2,11 +2,10 @@ package com.isakov.springboot.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name="APPS")
@@ -16,17 +15,17 @@ public class App implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     @Column(name="NAME", nullable=false)
     private String name;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PUBLISHER_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Publisher publisher;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "app")
-    private List<AppVersion> versions;
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "app")
+    //private List<Version> versions;
 
     public App() {
     }
@@ -36,13 +35,13 @@ public class App implements Serializable {
         this.publisher = publisher;
     }
 
-    public List<AppVersion> getVersions() {
-        return versions;
-    }
+    //public List<Version> getVersions() {
+    //    return versions;
+    //}
 
-    public void setVersions(List<AppVersion> versions) {
-        this.versions = versions;
-    }
+    //public void setVersions(List<Version> versions) {
+    //    this.versions = versions;
+    //}
 
     public Long getId() {
         return id;
@@ -68,14 +67,8 @@ public class App implements Serializable {
         this.publisher = publisher;
     }
 
-    public boolean hasVersion(AppVersion version) {
-        if (version == null) return false;
-        for (AppVersion appVersion: getVersions()) {
-            if (appVersion.getId() == version.getId()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isNew() {
+        return (getId() == null);
     }
 
     @Override

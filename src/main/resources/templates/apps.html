@@ -30,7 +30,7 @@
     		<td th:text="${app.name}"></td>
 			<td></td>
 			<td>
-				<a th:href="@{/apps/addAppVersion/{id}(id=${app.id})}" class="btn btn-success btn-xs">Add Version</a>
+				<a th:href="@{/apps/addVersion/{id}(id=${app.id})}" class="btn btn-success btn-xs">Add Version</a>
 				<a th:href="@{/apps/{id}/versions/(id=${app.id})}" class="btn btn-success btn-xs">Versions</a>
 				<a th:href="@{/apps/edit/{id}(id=${app.id})}" class="btn btn-success btn-xs">Edit App</a>
 				<a th:href="@{/apps/delete/{id}(id=${app.id})}" class="btn btn-danger btn-xs">Delete</a>

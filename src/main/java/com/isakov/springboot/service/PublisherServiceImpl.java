@@ -1,10 +1,9 @@
 package com.isakov.springboot.service;
 
+import com.isakov.springboot.AuthorizedPublisher;
 import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.repositories.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -52,13 +51,11 @@ public class PublisherServiceImpl implements PublisherService, UserDetailsServic
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String publisherName) throws UsernameNotFoundException {
+	public AuthorizedPublisher loadUserByUsername(String publisherName) throws UsernameNotFoundException {
 		Publisher p = publisherRepository.findByName(publisherName);
-
-		UserDetails user = new org.springframework.security.core.userdetails.User(publisherName, p.getPasswordHash(), true,
-				true, true, true, AuthorityUtils.createAuthorityList(p.getRole()));
-
-		System.out.println("ROLE: " + p.getRole());
-		return user;
+		if (p == null) {
+			throw new UsernameNotFoundException("Publisher " + publisherName + " is not found");
+		}
+		return new AuthorizedPublisher(p);
 	}
 }

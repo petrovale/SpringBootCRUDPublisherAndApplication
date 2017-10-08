@@ -11,7 +11,7 @@
 		<h1>Versions</h1>
 	</div>
 	<div class="col-md-4">
-		<h3 th:text="${nameapp}"></h3>
+		<h3 th:text="${app.name}"></h3>
 	</div>
 	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
@@ -37,13 +37,13 @@
 				</span>
 			</td>
       		<td>
-    			<a th:href="@{apps/versions/add/{id}(id=${version.id})}" class="btn btn-success btn-xs">Add</a>
-    			<a th:href="@{apps/versions/edit/{id}(id=${version.id})}" class="btn btn-success btn-xs">Edit</a>
-    			<a th:href="@{apps/versions/delete/{id}(id=${version.id})}" class="btn btn-danger btn-xs">Delete</a>
+    			<a th:href="@{/apps/{appid}/versions/edit/{versionid}(versionid=${version.id}, appid=${app.id})}" class="btn btn-success btn-xs">Edit</a>
+    			<a th:href="@{/apps/{appid}/versions/delete/{versionid}(versionid=${version.id}, appid=${app.id})}" class="btn btn-danger btn-xs">Delete</a>
     		</td>
     	</tr>
     </table>
-    <a href="/SpringBootCRUDApp/apps" class="btn btn-success">Apps</a>
+		<a th:href="@{/apps/addVersion/{appid}(appid=${app.id})}" class="btn btn-success">Add Version</a>
+		<a href="/SpringBootCRUDApp/apps" class="btn btn-success">Apps</a>
 	</div>    
 </body>
 </html>

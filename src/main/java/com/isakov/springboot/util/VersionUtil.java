@@ -1,12 +1,12 @@
 package com.isakov.springboot.util;
 
-import com.isakov.springboot.model.AppVersion;
+import com.isakov.springboot.model.Version;
 
 public class VersionUtil {
     private VersionUtil() {
     }
 
-    public static AppVersion prepareToSave(AppVersion version) {
+    public static Version prepareToSave(Version version) {
         if (version.isActive())
             version.setActive(false);
         return version;
