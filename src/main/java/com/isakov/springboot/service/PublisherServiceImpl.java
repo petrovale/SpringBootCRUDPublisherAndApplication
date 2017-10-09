@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.isakov.springboot.util.PublisherUtil.prepareToSave;
+
 @Service("publisherService")
 @Transactional
 public class PublisherServiceImpl implements PublisherService, UserDetailsService{
@@ -26,8 +28,8 @@ public class PublisherServiceImpl implements PublisherService, UserDetailsServic
 		return publisherRepository.findByName(name);
 	}
 
-	public void savePublisher(Publisher publisher) {
-		publisherRepository.save(publisher);
+	public Publisher savePublisher(Publisher publisher) {
+		return publisherRepository.save(prepareToSave(publisher));
 	}
 
 	public void updatePublisher(Publisher publisher){

@@ -52,7 +52,7 @@ public class Publisher implements Serializable{
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
     @JsonIgnore
     private List<App> apps;
 

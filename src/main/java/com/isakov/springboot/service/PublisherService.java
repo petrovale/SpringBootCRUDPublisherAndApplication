@@ -10,9 +10,9 @@ public interface PublisherService {
 
 	Publisher findByName(String name);
 
-	void savePublisher(Publisher user);
+	Publisher savePublisher(Publisher publisher);
 
-	void updatePublisher(Publisher user);
+	void updatePublisher(Publisher publisher);
 
 	void deletePublisherById(Long id);
 

@@ -49,7 +49,7 @@ public class SpringBootCRUDApp {
 */
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			Publisher publisher1 = new Publisher("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
-			Publisher publisher2 = new Publisher("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ADMIN");
+			Publisher publisher2 = new Publisher("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ROLE_ADMIN");
 			publisher1 = publisherRepository.save(publisher1);
 			publisherRepository.save(publisher2);
 

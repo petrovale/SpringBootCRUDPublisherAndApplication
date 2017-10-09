@@ -9,7 +9,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import static com.isakov.springboot.util.PasswordUtil.PASSWORD_ENCODER;
 
 
 @Configuration
@@ -25,6 +26,10 @@ public class MultiWebSecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
+					.authorizeRequests()
+					.antMatchers("/rest/admin/**").hasRole("ADMIN")
+					.anyRequest().authenticated()
+					.and()
 					.antMatcher("/rest/**")
 					.authorizeRequests()
 					.anyRequest().authenticated()
@@ -57,6 +62,6 @@ public class MultiWebSecurityConfig {
      
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(publisherService).passwordEncoder(new BCryptPasswordEncoder());
+    	auth.userDetailsService(publisherService).passwordEncoder(PASSWORD_ENCODER);
     }
 }
