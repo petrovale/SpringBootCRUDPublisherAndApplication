@@ -31,7 +31,7 @@ public class AppRestController {
 
     @GetMapping
     public ResponseEntity<List<App>> getAll() {
-        long publisherId = AuthorizedPublisher.id();
+        int publisherId = AuthorizedPublisher.id();
         logger.info("getAll for Publisher {}", publisherId);
         List<App> apps = appService.getAllWithGenre(publisherId);
         if (apps.isEmpty()) {
@@ -42,8 +42,8 @@ public class AppRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createApp(@RequestBody App app, UriComponentsBuilder ucBuilder, @RequestParam(value = "genreId") long genreId) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<?> createApp(@RequestBody App app, UriComponentsBuilder ucBuilder, @RequestParam(value = "genreId") int genreId) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("Creating App : {}", app);
 
         appService.saveApp(app, publisherId, genreId);
@@ -54,8 +54,8 @@ public class AppRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteApp(@PathVariable("id") long id) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<?> deleteApp(@PathVariable("id") int id) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("Fetching & Deleting App with id {}", id);
 
         if (appService.deleteAppById(id, publisherId) == 0) {

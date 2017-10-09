@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface AppService {
 
-    App saveApp(App app, long publisherId, long genreId);
+    App saveApp(App app, int publisherId, int genreId);
 
-    App get(long id, long publisherId);
+    App get(int id, int publisherId);
 
-    int deleteAppById(Long id, Long publisherId);
+    int deleteAppById(int id, int publisherId);
 
-    List<App> getAll(Long publisherId);
+    List<App> getAll(int publisherId);
 
-    List<App> getAllWithGenre(long id);
+    List<App> getAllWithGenre(int id);
 }

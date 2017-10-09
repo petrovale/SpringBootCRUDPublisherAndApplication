@@ -32,32 +32,19 @@ public class SpringBootCRUDApp {
 	@Bean
 	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository, GenreRepository genreRepository, VersionRepository versionRepository) {
 		return (args) -> {
-			/*
-
-			Course course1 = new Course("Programming Java");
-			Course course2 = new Course("Spring Boot basics");
-			crepository.save(new Course("Marketing 1"));
-			crepository.save(new Course("Marketing 2"));
-
-			crepository.save(course1);
-			crepository.save(course2);
-
-			Set<Course> courses = new HashSet<Course>();
-			courses.add(course1);
-			courses.add(course2);
-
-			student1.setCourses(courses);
-			repository.save(student1);
-*/
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			Publisher publisher1 = new Publisher("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			Publisher publisher2 = new Publisher("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ROLE_ADMIN");
 			publisher1 = publisherRepository.save(publisher1);
 			publisherRepository.save(publisher2);
 
+			// save Henres
+			Genre genre1 = genreRepository.save(new Genre("Programming Java"));
+			Genre genre2 = genreRepository.save(new Genre("Spring Boot basics"));
+
 			// save apps
-			App app1 = appRepository.save(new App("Destroyers publisher1", publisher1));
-			appRepository.save(new App("Screwdriver publisher1", publisher1));
+			App app1 = appRepository.save(new App("Destroyers publisher1", publisher1, genre2));
+			appRepository.save(new App("Screwdriver publisher1", publisher1, genre1));
 			appRepository.save(new App("Collector publisher1", publisher1));
 			appRepository.save(new App("Developer publisher1", publisher1));
 
@@ -68,11 +55,6 @@ public class SpringBootCRUDApp {
 			versionRepository.save(new Version("Version 2", false, app1, publisher1));
 			versionRepository.save(new Version("Version 3", false, app1, publisher1));
 
-			Genre genre1 = new Genre("Programming Java");
-			Genre genre2 = new Genre("Spring Boot basics");
-
-			genreRepository.save(genre1);
-			genreRepository.save(genre2);
 		};
 	}
 }

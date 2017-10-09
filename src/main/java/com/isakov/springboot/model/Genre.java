@@ -1,5 +1,6 @@
 package com.isakov.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -10,13 +11,14 @@ import java.util.Set;
 public class Genre {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long genreid;
+    private Integer genreid;
 
     @NotBlank
     @Column(name="NAME", nullable=false)
     private String name;
 
     @ManyToMany(mappedBy = "genres")
+    @JsonIgnore
     private Set<App> apps;
 
     public Genre() {
@@ -26,11 +28,11 @@ public class Genre {
         this.name = name;
     }
 
-    public Long getGenreid() {
+    public Integer getGenreid() {
         return genreid;
     }
 
-    public void setGenreid(Long genreid) {
+    public void setGenreid(Integer genreid) {
         this.genreid = genreid;
     }
 

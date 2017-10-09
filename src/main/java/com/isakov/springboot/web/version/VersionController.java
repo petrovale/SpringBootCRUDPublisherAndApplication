@@ -20,16 +20,16 @@ public class VersionController {
     private VersionService versionService;
 
     @RequestMapping("/apps/{id}/versions/")
-    public String index(@PathVariable("id") Long appId, Model model) {
-        long publisherId = AuthorizedPublisher.id();
+    public String index(@PathVariable("id") int appId, Model model) {
+        int publisherId = AuthorizedPublisher.id();
         model.addAttribute("versions", versionService.getAll(appId, publisherId));
         model.addAttribute("app", appService.get(appId, publisherId));
         return "versions";
     }
 
     @RequestMapping(value = "/apps/{id}/versions/addVersion/", method = RequestMethod.GET)
-    public String addAppVersion(@PathVariable("id") Long appId, Model model){
-        long publisherId = AuthorizedPublisher.id();
+    public String addAppVersion(@PathVariable("id") int appId, Model model){
+        int publisherId = AuthorizedPublisher.id();
         model.addAttribute("versions", versionService.getAll(appId, publisherId));
         model.addAttribute("app", appService.get(appId, publisherId));
         model.addAttribute("version", new Version());
@@ -37,23 +37,23 @@ public class VersionController {
     }
 
     @RequestMapping(value = "/apps/{appid}/versions/delete/{versionid}", method = RequestMethod.GET)
-    public String deleteApp(@PathVariable("appid") Long appId,@PathVariable("versionid") Long versionId, Model model) {
-        long publisherId = AuthorizedPublisher.id();
+    public String deleteApp(@PathVariable("appid") int appId,@PathVariable("versionid") int versionId, Model model) {
+        int publisherId = AuthorizedPublisher.id();
         versionService.deleteById(versionId, appId, publisherId);
         return "redirect:/apps/" + appId + "/versions/";
     }
 
     @RequestMapping(value="/apps/{appid}/versions/edit/{versionid}", method=RequestMethod.GET)
-    public String editVersion(@PathVariable("appid") Long appId, @PathVariable("versionid") Long versionId, Model model){
-        long publisherId = AuthorizedPublisher.id();
+    public String editVersion(@PathVariable("appid") int appId, @PathVariable("versionid") int versionId, Model model){
+        int publisherId = AuthorizedPublisher.id();
         model.addAttribute("appid", appId);
         model.addAttribute("version", versionService.get(versionId, appId, publisherId));
         return "editVersion";
     }
 
     @RequestMapping(value = "/apps/{appid}/versions/save", method = RequestMethod.POST)
-    public String save(@PathVariable("appid") Long appId, Version version){
-        long publisherId = AuthorizedPublisher.id();
+    public String save(@PathVariable("appid") int appId, Version version){
+        int publisherId = AuthorizedPublisher.id();
         versionService.saveVersion(version, appId, publisherId);
         return "redirect:/apps/" + appId + "/versions/";
     }

@@ -35,11 +35,11 @@ public class AuthorizedPublisher extends org.springframework.security.core.userd
         return authorizedUser;
     }
 
-    public long getId() {
+    public int getId() {
         return publisherTo.getId();
     }
 
-    public static long id() {
+    public static int id() {
         return get().publisherTo.getId();
     }
 

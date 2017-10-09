@@ -24,7 +24,7 @@ public class AppServiceImpl implements AppService {
 
     @Transactional
     @Override
-    public App saveApp(App app, long publisherId, long genreId) {
+    public App saveApp(App app, int publisherId, int genreId) {
         if (!app.isNew() && get(app.getId(), publisherId) == null) {
             return null;
         }
@@ -34,23 +34,23 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public App get(long id, long publisherId) {
+    public App get(int id, int publisherId) {
         App app = appRepository.findOne(id);
         return app != null && app.getPublisher().getId() == publisherId ? app : null;
     }
 
     @Override
-    public int deleteAppById(Long id, Long publisherId){
+    public int deleteAppById(int id, int publisherId){
         return appRepository.delete(id, publisherId);
     }
 
     @Override
-    public List<App> getAll(Long publisherId){
+    public List<App> getAll(int publisherId){
         return appRepository.getAll(publisherId);
     }
 
     @Override
-    public List<App> getAllWithGenre(long publisherId) {
+    public List<App> getAllWithGenre(int publisherId) {
         return appRepository.getAllWithGenre(publisherId);
     }
 }

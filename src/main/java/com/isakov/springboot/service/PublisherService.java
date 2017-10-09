@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PublisherService {
 
-	Publisher findById(Long id);
+	Publisher findById(int id);
 
 	Publisher findByName(String name);
 
@@ -14,7 +14,7 @@ public interface PublisherService {
 
 	void updatePublisher(Publisher publisher);
 
-	int deletePublisherById(long id);
+	int deletePublisherById(int id);
 
 	void deleteAllPublishers();
 

@@ -16,7 +16,7 @@ public class App implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotBlank
     @Column(name="NAME", nullable=false)
@@ -32,9 +32,6 @@ public class App implements Serializable {
     @JoinTable(name = "app_genre", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "genreid") })
     private Set<Genre> genres = new HashSet<>(0);
 
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "app")
-    //private List<Version> versions;
-
     public App() {
     }
 
@@ -43,14 +40,11 @@ public class App implements Serializable {
         this.publisher = publisher;
     }
 
-    //public List<Version> getVersions() {
-    //    return versions;
-    //}
-
-    //public void setVersions(List<Version> versions) {
-    //    this.versions = versions;
-    //}
-
+    public App(String name, Publisher publisher, Genre genre) {
+        this.name = name;
+        this.publisher = publisher;
+        this.getGenres().add(genre);
+    }
 
     public Set<Genre> getGenres() {
         return genres;
@@ -60,11 +54,11 @@ public class App implements Serializable {
         this.genres = genres;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

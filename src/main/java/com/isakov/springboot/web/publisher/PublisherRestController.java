@@ -5,7 +5,6 @@ import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.service.PublisherService;
 import com.isakov.springboot.to.PublisherTo;
 import com.isakov.springboot.util.CustomErrorType;
-import com.isakov.springboot.web.RestApiController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class PublisherRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPublisher(@PathVariable("id") long id) {
+    public ResponseEntity<?> getPublisher(@PathVariable("id") int id) {
         logger.info("Fetching Publisher with id {}", id);
         Publisher publisher = publisherService.findById(id);
         if (publisher == null) {
@@ -69,7 +68,7 @@ public class PublisherRestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") int id) {
         logger.info("Fetching & Deleting Publisher with id {}", id);
 
         if (publisherService.deletePublisherById(id) == 0) {

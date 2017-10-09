@@ -30,7 +30,7 @@ public class AppController {
 
     @RequestMapping("/apps")
     public String index(Model model) {
-        long publisherId = AuthorizedPublisher.id();
+        int publisherId = AuthorizedPublisher.id();
         List<App> apps = appService.getAllWithGenre(publisherId);
         model.addAttribute("apps", apps);
         return "apps";
@@ -44,15 +44,15 @@ public class AppController {
     }
 
     @RequestMapping(value = "/apps/save", method = RequestMethod.POST)
-    public String save(App app, @RequestParam Long genreId){
-        long publisherId = AuthorizedPublisher.id();
+    public String save(App app, @RequestParam int genreId){
+        int publisherId = AuthorizedPublisher.id();
         appService.saveApp(app, publisherId, genreId);
         return "redirect:/apps";
     }
 
     @RequestMapping(value = "/apps/delete/{id}", method = RequestMethod.GET)
-    public String deleteApp(@PathVariable("id") Long appId) {
-        long publisherId = AuthorizedPublisher.id();
+    public String deleteApp(@PathVariable("id") int appId) {
+        int publisherId = AuthorizedPublisher.id();
         appService.deleteAppById(appId, publisherId);
         return "redirect:/apps";
     }

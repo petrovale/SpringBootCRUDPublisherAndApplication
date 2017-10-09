@@ -38,7 +38,7 @@ public class RestApiController {
 	// -------------------Retrieve Single Publisher------------------------------------------
 
 	@RequestMapping(value = "/publisher/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getPublisher(@PathVariable("id") long id) {
+	public ResponseEntity<?> getPublisher(@PathVariable("id") int id) {
 		logger.info("Fetching Publisher with id {}", id);
 		Publisher publisher = publisherService.findById(id);
 		if (publisher == null) {
@@ -70,7 +70,7 @@ public class RestApiController {
 	// ------------------- Update a Publisher ------------------------------------------------
 
 	@RequestMapping(value = "/publisher/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updatePublisher(@PathVariable("id") long id, @RequestBody Publisher publisher) {
+	public ResponseEntity<?> updatePublisher(@PathVariable("id") int id, @RequestBody Publisher publisher) {
 		logger.info("Updating Publisher with id {}", id);
 
 		Publisher currentPublisher = publisherService.findById(id);
@@ -90,7 +90,7 @@ public class RestApiController {
 	// ------------------- Delete a Publisher-----------------------------------------
 
 	@RequestMapping(value = "/publisher/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deletePublisher(@PathVariable("id") long id) {
+	public ResponseEntity<?> deletePublisher(@PathVariable("id") int id) {
 		logger.info("Fetching & Deleting Publisher with id {}", id);
 
 		Publisher publisher = publisherService.findById(id);

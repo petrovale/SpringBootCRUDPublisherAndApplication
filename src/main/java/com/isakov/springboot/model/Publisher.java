@@ -13,7 +13,7 @@ public class Publisher implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotEmpty
     @Column(name="NAME", nullable = false)
@@ -25,6 +25,10 @@ public class Publisher implements Serializable{
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
+    @JsonIgnore
+    private List<App> apps;
 
     public Publisher() {
     }
@@ -52,15 +56,11 @@ public class Publisher implements Serializable{
         this.role = role;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
-    @JsonIgnore
-    private List<App> apps;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

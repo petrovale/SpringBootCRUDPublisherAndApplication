@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class PublisherTo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     @NotBlank
     @SafeHtml
@@ -19,17 +19,17 @@ public class PublisherTo implements Serializable {
     public PublisherTo() {
     }
 
-    public PublisherTo(Long id, String name, String password) {
+    public PublisherTo(Integer id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface VersionService {
 
-    Version saveVersion(Version newVersion, long appId, long publisherId);
+    Version saveVersion(Version newVersion, int appId, int publisherId);
 
-    int deleteById(long versionId, long appId, long publisherId);
+    int deleteById(int versionId, int appId, int publisherId);
 
-    List<Version> getAll(long appId, long publisherId);
+    List<Version> getAll(int appId, int publisherId);
 
-    Version get(long versionId, long appId, long publisherId);
+    Version get(int versionId, int appId, int publisherId);
 }

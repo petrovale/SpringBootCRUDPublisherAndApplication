@@ -12,15 +12,15 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 @Repository
-public interface VersionRepository extends JpaRepository<Version, Long> {
+public interface VersionRepository extends JpaRepository<Version, Integer> {
 
     Version findByActiveTrue();
 
     @Query("SELECT v FROM Version v WHERE v.app.id=:appId AND v.publisher.id=:publisherId")
-    List<Version> getAll(@Param("appId") long appId, @Param("publisherId") long publisherId);
+    List<Version> getAll(@Param("appId") int appId, @Param("publisherId") int publisherId);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Version v WHERE v.id=:versionId AND v.app.id=:appId AND v.publisher.id=:publisherId")
-    int delete(@Param("versionId") long versionId, @Param("appId") long appId, @Param("publisherId") long publisherId);
+    int delete(@Param("versionId") int versionId, @Param("appId") int appId, @Param("publisherId") int publisherId);
 }

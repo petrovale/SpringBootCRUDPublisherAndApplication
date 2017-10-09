@@ -12,17 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface AppRepository extends JpaRepository<App, Long> {
+public interface AppRepository extends JpaRepository<App, Integer> {
 
     @Query("SELECT a FROM App a WHERE a.publisher.id=:publisherId")
-    List<App> getAll(@Param("publisherId") long publisherId);
+    List<App> getAll(@Param("publisherId") int publisherId);
 
     @EntityGraph(attributePaths={"genres"})
     @Query("SELECT a FROM App a WHERE a.publisher.id=?1")
-    List<App> getAllWithGenre(long id);
+    List<App> getAllWithGenre(int id);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM App a WHERE a.id=:id AND a.publisher.id=:publisherId")
-    int delete(@Param("id") long id, @Param("publisherId") long publisherId);
+    int delete(@Param("id") int id, @Param("publisherId") int publisherId);
 }

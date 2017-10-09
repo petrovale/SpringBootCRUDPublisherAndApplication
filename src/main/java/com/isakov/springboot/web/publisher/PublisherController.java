@@ -1,7 +1,7 @@
 package com.isakov.springboot.web.publisher;
 
 import com.isakov.springboot.model.Publisher;
-import com.isakov.springboot.service.PublisherService;
+import com.isakov.springboot.repository.PublisherRepository;
 import com.isakov.springboot.to.SignupForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 public class PublisherController {
 	@Autowired
-    private PublisherService service;
+    private PublisherRepository publisherRepository;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -43,8 +43,8 @@ public class PublisherController {
 		    	newPublisher.setPasswordHash(hashPwd);
 		    	newPublisher.setName(signupForm.getUsername());
 		    	newPublisher.setRole("USER");
-		    	if (service.findByName(signupForm.getUsername()) == null) {
-		    		service.savePublisher(newPublisher);
+		    	if (publisherRepository.findByName(signupForm.getUsername()) == null) {
+		    		publisherRepository.save(newPublisher);
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "error.userexists", "Username already exists");    	

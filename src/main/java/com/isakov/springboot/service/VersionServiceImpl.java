@@ -25,7 +25,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Transactional
     @Override
-    public Version saveVersion(Version newVersion, long appId, long publisherId) {
+    public Version saveVersion(Version newVersion, int appId, int publisherId) {
         if (!newVersion.isNew() && get(newVersion.getId(), appId, publisherId) == null) {
             return null;
         }
@@ -41,7 +41,7 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public Version get(long versionId, long appId, long publisherId) {
+    public Version get(int versionId, int appId, int publisherId) {
         Version version = versionRepository.findOne(versionId);
         return version != null &&
                 version.getApp().getId() == appId &&
@@ -50,12 +50,12 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public int deleteById(long versionId, long appId, long publisherId) {
+    public int deleteById(int versionId, int appId, int publisherId) {
         return versionRepository.delete(versionId, appId, publisherId);
     }
 
     @Override
-    public List<Version> getAll(long appId,long publisherId) {
+    public List<Version> getAll(int appId, int publisherId) {
         return versionRepository.getAll(appId, publisherId);
     }
 }

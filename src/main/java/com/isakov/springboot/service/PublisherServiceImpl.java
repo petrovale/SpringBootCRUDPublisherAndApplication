@@ -20,7 +20,7 @@ public class PublisherServiceImpl implements PublisherService, UserDetailsServic
 	@Autowired
 	private PublisherRepository publisherRepository;
 
-	public Publisher findById(Long id) {
+	public Publisher findById(int id) {
 		return publisherRepository.findOne(id);
 	}
 
@@ -36,7 +36,7 @@ public class PublisherServiceImpl implements PublisherService, UserDetailsServic
 		savePublisher(publisher);
 	}
 
-	public int deletePublisherById(long id){
+	public int deletePublisherById(int id){
 		return publisherRepository.delete(id);
 	}
 

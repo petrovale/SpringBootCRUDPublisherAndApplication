@@ -1,7 +1,6 @@
 package com.isakov.springboot.web.version;
 
 import com.isakov.springboot.AuthorizedPublisher;
-import com.isakov.springboot.model.App;
 import com.isakov.springboot.model.Publisher;
 import com.isakov.springboot.model.Version;
 import com.isakov.springboot.service.VersionService;
@@ -31,8 +30,8 @@ public class VersionRestController {
     private VersionService versionService;
 
     @GetMapping("/{id}/versions")
-    public ResponseEntity<List<Version>> getAll(@PathVariable("id") long id) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<List<Version>> getAll(@PathVariable("id") int id) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("getAll versions for App {}", id);
         List<Version> versions = versionService.getAll(id, publisherId);
         if (versions.isEmpty()) {
@@ -44,8 +43,8 @@ public class VersionRestController {
 
 
     @PostMapping(value = "/{id}/versions", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createVersion(@RequestBody Version version, UriComponentsBuilder ucBuilder, @PathVariable("id") long id) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<?> createVersion(@RequestBody Version version, UriComponentsBuilder ucBuilder, @PathVariable("id") int id) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("Creating Version {} for App : {}", version, id);
 
         versionService.saveVersion(version, id, publisherId);
@@ -57,8 +56,8 @@ public class VersionRestController {
 
 
     @DeleteMapping("/{id}/versions/{versionId}")
-    public ResponseEntity<?> deleteVersion(@PathVariable("id") long appId, @PathVariable("versionId") long versionId) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<?> deleteVersion(@PathVariable("id") int appId, @PathVariable("versionId") int versionId) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("Fetching & Deleting Version with id {} for App {}", versionId, appId);
 
         if (versionService.deleteById(versionId, appId, publisherId) == 0) {
@@ -70,8 +69,8 @@ public class VersionRestController {
     }
 
     @PutMapping(value = "/{id}/versions", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody Version version, UriComponentsBuilder ucBuilder, @PathVariable("id") long appId) {
-        long publisherId = AuthorizedPublisher.id();
+    public ResponseEntity<?> update(@RequestBody Version version, UriComponentsBuilder ucBuilder, @PathVariable("id") int appId) {
+        int publisherId = AuthorizedPublisher.id();
         logger.info("update {} with id={} for App {}", version, version.getId(), appId);
         if (version.isNew()) {
             throw new IllegalArgumentException(version.getId() + " must be new (id=null)");
