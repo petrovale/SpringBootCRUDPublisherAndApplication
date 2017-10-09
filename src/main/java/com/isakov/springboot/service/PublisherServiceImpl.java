@@ -36,8 +36,8 @@ public class PublisherServiceImpl implements PublisherService, UserDetailsServic
 		savePublisher(publisher);
 	}
 
-	public void deletePublisherById(Long id){
-		publisherRepository.delete(id);
+	public int deletePublisherById(long id){
+		return publisherRepository.delete(id);
 	}
 
 	public void deleteAllPublishers(){

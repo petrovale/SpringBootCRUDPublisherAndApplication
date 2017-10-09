@@ -49,4 +49,12 @@ public class Genre {
     public void setApps(Set<App> apps) {
         this.apps = apps;
     }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "genreid=" + genreid +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

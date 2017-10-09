@@ -1,5 +1,6 @@
 package com.isakov.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
@@ -27,15 +28,24 @@ public class Version implements Serializable {
     @JoinColumn(name = "APP_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @JsonIgnore
     private App app;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PUBLISHER_ID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @JsonIgnore
     private Publisher publisher;
 
     public Version() {
+    }
+
+    public Version(String name, boolean active, App app, Publisher publisher) {
+        this.name = name;
+        this.active = active;
+        this.app = app;
+        this.publisher = publisher;
     }
 
     public boolean isNew() {
@@ -80,6 +90,15 @@ public class Version implements Serializable {
 
     public void setApp(App app) {
         this.app = app;
+    }
+
+    @Override
+    public String toString() {
+        return "Version{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                '}';
     }
 
     @Override

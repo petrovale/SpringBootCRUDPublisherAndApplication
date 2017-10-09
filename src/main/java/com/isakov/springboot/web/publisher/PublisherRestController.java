@@ -25,7 +25,7 @@ import static com.isakov.springboot.util.PublisherUtil.createNewFromTo;
 public class PublisherRestController {
     static final String REST_URL = "/rest/admin/publishers";
 
-    public static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
+    public static final Logger logger = LoggerFactory.getLogger(PublisherRestController.class);
 
     @Autowired
     PublisherService publisherService;
@@ -72,7 +72,11 @@ public class PublisherRestController {
     public ResponseEntity<?> delete(@PathVariable("id") long id) {
         logger.info("Fetching & Deleting Publisher with id {}", id);
 
-        publisherService.deletePublisherById(id);
+        if (publisherService.deletePublisherById(id) == 0) {
+            logger.error("Unable to delete. Publisher with id {} not found.", id);
+            return new ResponseEntity(new CustomErrorType("Unable to delete. Publisher with id " + id + " not found."),
+                    HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<Publisher>(HttpStatus.NO_CONTENT);
     }
 }

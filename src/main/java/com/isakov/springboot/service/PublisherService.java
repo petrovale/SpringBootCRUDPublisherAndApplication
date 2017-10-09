@@ -14,7 +14,7 @@ public interface PublisherService {
 
 	void updatePublisher(Publisher publisher);
 
-	void deletePublisherById(Long id);
+	int deletePublisherById(long id);
 
 	void deleteAllPublishers();
 

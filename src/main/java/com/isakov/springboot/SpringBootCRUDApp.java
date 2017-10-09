@@ -4,9 +4,11 @@ import com.isakov.springboot.configuration.JpaConfiguration;
 import com.isakov.springboot.model.App;
 import com.isakov.springboot.model.Genre;
 import com.isakov.springboot.model.Publisher;
+import com.isakov.springboot.model.Version;
 import com.isakov.springboot.repository.AppRepository;
 import com.isakov.springboot.repository.GenreRepository;
 import com.isakov.springboot.repository.PublisherRepository;
+import com.isakov.springboot.repository.VersionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,7 +30,7 @@ public class SpringBootCRUDApp {
 	 * @return
 	 */
 	@Bean
-	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository, GenreRepository genreRepository) {
+	public CommandLineRunner demo(PublisherRepository publisherRepository, AppRepository appRepository, GenreRepository genreRepository, VersionRepository versionRepository) {
 		return (args) -> {
 			/*
 
@@ -54,13 +56,17 @@ public class SpringBootCRUDApp {
 			publisherRepository.save(publisher2);
 
 			// save apps
-			appRepository.save(new App("Destroyers publisher1", publisher1));
+			App app1 = appRepository.save(new App("Destroyers publisher1", publisher1));
 			appRepository.save(new App("Screwdriver publisher1", publisher1));
 			appRepository.save(new App("Collector publisher1", publisher1));
 			appRepository.save(new App("Developer publisher1", publisher1));
 
 			appRepository.save(new App("Destroyers publisher2", publisher2));
 			appRepository.save(new App("Screwdriver publisher2", publisher2));
+
+			versionRepository.save(new Version("Version 1", false, app1, publisher1));
+			versionRepository.save(new Version("Version 2", false, app1, publisher1));
+			versionRepository.save(new Version("Version 3", false, app1, publisher1));
 
 			Genre genre1 = new Genre("Programming Java");
 			Genre genre2 = new Genre("Spring Boot basics");

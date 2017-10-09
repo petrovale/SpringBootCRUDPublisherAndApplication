@@ -50,8 +50,8 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public void deleteById(long versionId, long appId, long publisherId) {
-        versionRepository.delete(versionId, appId, publisherId);
+    public int deleteById(long versionId, long appId, long publisherId) {
+        return versionRepository.delete(versionId, appId, publisherId);
     }
 
     @Override

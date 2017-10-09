@@ -8,7 +8,7 @@ public interface VersionService {
 
     Version saveVersion(Version newVersion, long appId, long publisherId);
 
-    void deleteById(long versionId, long appId, long publisherId);
+    int deleteById(long versionId, long appId, long publisherId);
 
     List<Version> getAll(long appId, long publisherId);
 
