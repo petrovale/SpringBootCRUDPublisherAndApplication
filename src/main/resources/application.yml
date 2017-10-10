@@ -1,7 +1,7 @@
 ---
 server:
   port: 8080
-  contextPath: /SpringBootCRUDApp
+  contextPath: /springboot
 ---
 spring:
   profiles: local, default

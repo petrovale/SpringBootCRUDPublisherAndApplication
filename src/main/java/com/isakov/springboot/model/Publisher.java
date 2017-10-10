@@ -4,16 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="PUBLISHERS")
-public class Publisher implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+public class Publisher extends BaseEntity {
 
     @NotEmpty
     @Column(name="NAME", nullable = false)
@@ -56,14 +51,6 @@ public class Publisher implements Serializable{
         this.role = role;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -83,30 +70,9 @@ public class Publisher implements Serializable{
     @Override
     public String toString() {
         return "Publisher{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Publisher publisher = (Publisher) o;
-
-        if (id != null ? !id.equals(publisher.id) : publisher.id != null) return false;
-        if (name != null ? !name.equals(publisher.name) : publisher.name != null) return false;
-        return apps != null ? apps.equals(publisher.apps) : publisher.apps == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (apps != null ? apps.hashCode() : 0);
-        return result;
     }
 }

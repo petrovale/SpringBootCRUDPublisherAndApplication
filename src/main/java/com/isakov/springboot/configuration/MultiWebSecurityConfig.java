@@ -44,7 +44,7 @@ public class MultiWebSecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-					.authorizeRequests().antMatchers("/css/**", "/signup", "/saveuser").permitAll() // Enable css when logged out
+					.authorizeRequests().antMatchers("/css/**", "/signup", "/saveuser", "/api/**").permitAll() // Enable css when logged out
 					.and()
 					.authorizeRequests()
 					.anyRequest().authenticated()

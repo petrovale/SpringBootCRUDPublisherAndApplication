@@ -6,17 +6,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="APPS")
-public class App implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+public class App extends BaseEntity {
 
     @NotBlank
     @Column(name="NAME", nullable=false)
@@ -54,14 +49,6 @@ public class App implements Serializable {
         this.genres = genres;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -85,29 +72,8 @@ public class App implements Serializable {
     @Override
     public String toString() {
         return "App{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        App app = (App) o;
-
-        if (id != null ? !id.equals(app.id) : app.id != null) return false;
-        if (name != null ? !name.equals(app.name) : app.name != null) return false;
-        return publisher != null ? publisher.equals(app.publisher) : app.publisher == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
-        return result;
     }
 }
